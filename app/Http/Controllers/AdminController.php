@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class AdminController extends Controller
@@ -14,8 +15,9 @@ class AdminController extends Controller
     public function index()
     {
         //
+        $data = User::all();
+        return view('admin.admin_dashboard',['datas'=>$data]);
     }
-
     /**
      * Show the form for creating a new resource.
      *
@@ -35,6 +37,7 @@ class AdminController extends Controller
     public function store(Request $request)
     {
         //
+
     }
 
     /**
@@ -46,6 +49,7 @@ class AdminController extends Controller
     public function show($id)
     {
         //
+
     }
 
     /**
@@ -56,7 +60,8 @@ class AdminController extends Controller
      */
     public function edit($id)
     {
-        //
+        $data = User::find($id);
+        return view('admin.admin_edit',['datas'=>$data]);
     }
 
     /**
@@ -68,7 +73,21 @@ class AdminController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'first_name'=>'required',
+            'last_name'=>'required',
+            'middle_name'=>'required'  
+        ]);
+
+        $data = User::find($id);
+        $data->first_name = $request->first_name;
+        $data->last_name = $request->last_name;
+        $data->middle_name = $request->middle_name;
+        $data->update();
+
+        return redirect('admin');
+
+
     }
 
     /**
@@ -79,6 +98,10 @@ class AdminController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $data = User::find($id);
+
+        $data->delete();
+        return redirect('admin');
+
     }
 }

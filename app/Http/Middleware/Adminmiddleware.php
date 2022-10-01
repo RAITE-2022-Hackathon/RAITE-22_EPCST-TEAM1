@@ -23,7 +23,7 @@ class Adminmiddleware
             if(Auth::user()->role == 'admin'){
                 return $next($request);
             }else{
-               return redirect('post',['message','Access denied!']);
+               return redirect('/post');
             }
         }
         // return $next($request);

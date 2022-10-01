@@ -17,8 +17,8 @@ class PostFactory extends Factory
     public function definition()
     {
         return [
-            'post_title' =>fake()->catchPhrase,
-            'description'=>fake()->catchPhrase,
+            'post_title' =>fake()->name(),
+            'description'=>fake()->text(),
             'date'=>fake()->date()
         ];
     }

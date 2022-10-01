@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
-use App\Models\User;
 use Illuminate\Http\Request;
 
 class PostController extends Controller
@@ -28,6 +27,7 @@ class PostController extends Controller
     {
         //
     }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -45,9 +45,10 @@ class PostController extends Controller
      * @param  \App\Models\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function show(Post $post)
+    public function show(Post $post, $id)
     {
-        return view('user.profile');
+        $data = Post::find($id);
+        return view('user.comments',[ 'data' => $data ]);
     }
 
     /**
@@ -72,6 +73,7 @@ class PostController extends Controller
     {
         //
     }
+
     /**
      * Remove the specified resource from storage.
      *

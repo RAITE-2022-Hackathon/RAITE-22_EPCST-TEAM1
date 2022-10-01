@@ -3,6 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -12,6 +13,7 @@
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
 
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
@@ -21,7 +23,8 @@
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
-                    {{ config('app.name', 'Laravel') }}
+                    <i class="fa-sharp fa-solid fa-paper-plane-top"><small>Social App</small></i>
+                  
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
@@ -57,18 +60,26 @@
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                                    {{-- if admin --}}
                                     @if (Auth::user()->role == 'admin')
-                                        <a href="{{ route('admin') }}">Dashboard</a>
+                                        <a class="dropdown-item" href="{{ url ('admin') }}">
+                                            Dashboard
+                                        </a>
                                     @endif
 
                                     {{-- user --}}
                                     @if (Auth::user()->role == 'user')
-                                    <a  class="dropdown-item" href="{{ url('post/profile') }}">Profile</a>
+                                        <a class="dropdown-item" href="{{ url ('profile') }}/{{ Auth::user()->id }}">
+                                            Profile
+                                        </a>
+                                        <a class="dropdown-item" href="{{ url ('create_post') }}/{{ Auth::user()->id }}">
+                                           Create Post
+                                        </a>
                                     @endif
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
                                         {{ __('Logout') }}
                                     </a>
+
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                         @csrf
                                     </form>

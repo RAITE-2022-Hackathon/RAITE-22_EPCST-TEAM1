@@ -17,20 +17,28 @@ use PHPUnit\TextUI\XmlConfiguration\Group;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
 Route::get('/', function () {
-    return  redirect('post');
+    return redirect('post');
 });
+
 // for login
 Auth::routes();
+
 // for posts routes
 Route::prefix('post')->group(function(){
     // for user page
     Route::get('/',[PostController::class,'index']);
-    Route::get('/profile',[PostController::class,'show']);
-   
+    Route::get('/comments/{id}',[PostController::class,'show'])->name('comments');
 });
+
 Route::prefix('admin')->middleware(['auth','isAdmin'])->group(function(){
     Route::get('/',[AdminController::class,'index']);
+    Route::get('/update/{id}',[AdminController::class, 'edit'])->name('update');
+    Route::put('/edit/update/{id}',[AdminController::class, 'update']);
+    Route::get('/delete/{id}',[AdminController::class,'destroy'])->name('delete');
 });
+
+Route::get('/profile/{id}',[ProfileController::class, 'show']);
 
 // Route::get('/post', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

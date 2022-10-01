@@ -13,9 +13,9 @@
                                 <small>{{ $value->date }}</small>
                                 <div class="mt-3 ml-3">
                                     {{-- stored in db the total likes by user --}}
-                                    <a href="#">Likes</a>
+                                    <a href="#">likes</a>
                                     {{-- get the id of user then post a name of a user --}}
-                                    <a href="#">Comments</a>
+                                    <a href="{{ url('post/comments') }}/{{ $value->id }}">comments</a>
                                     {{-- <a href="#"></a> --}}
                                 </div>
                             </div>

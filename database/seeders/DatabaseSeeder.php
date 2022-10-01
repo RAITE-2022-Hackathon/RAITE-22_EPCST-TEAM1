@@ -16,7 +16,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // \App\Models\User::factory(10)->create();
+        User::factory(5)->create();
 
         // \App\Models\User::factory()->create([
         //     'name' => 'Test User',
@@ -24,11 +24,13 @@ class DatabaseSeeder extends Seeder
         // ]);
 
         User::create([
-            'first_name' => 'jaypee',
-            'last_name' => 'quintana',
-            'middle_name' =>'yulde',
+            'first_name' => 'admin',
+            'middle_name' =>'no',
+            'last_name' => 'admin',
             'email'=>'admin@gmail.com',
-            'password'=>Hash::make('admin')
+            'password'=>Hash::make('admin'),
+            'role'=>'admin',
+
         ]);
         User::create([
             'first_name' => 'paul',
