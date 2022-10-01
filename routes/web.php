@@ -1,6 +1,11 @@
 <?php
 
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\PostController;
+use App\Http\Controllers\ProfileController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use PHPUnit\TextUI\XmlConfiguration\Group;
 
 /*
 |--------------------------------------------------------------------------
@@ -12,11 +17,20 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
 Route::get('/', function () {
-    return view('welcome');
+    return  redirect('post');
+});
+// for login
+Auth::routes();
+// for posts routes
+Route::prefix('post')->group(function(){
+    // for user page
+    Route::get('/',[PostController::class,'index']);
+    Route::get('/profile',[PostController::class,'show']);
+   
+});
+Route::prefix('admin')->middleware(['auth','isAdmin'])->group(function(){
+    Route::get('/',[AdminController::class,'index']);
 });
 
-Auth::routes();
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+// Route::get('/post', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
